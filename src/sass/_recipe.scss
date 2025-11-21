@@ -1,0 +1,144 @@
+@use 'base' as *;
+
+.book {
+  background-color: $color-bg-primary;
+  display: flex;
+  flex-direction: column;
+
+  ///////////
+  // COVER
+  &__cover {
+    height: 40rem;
+    position: relative;
+    background-color: $color-bg-tertiary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__img {
+    max-width: 26rem;
+    max-height: 38rem;
+    display: block;
+    object-fit: contain;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+  }
+
+  &__title {
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+    color: $color-text;
+    font-weight: 600;
+    font-size: 3rem;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 2.5rem;
+    }
+  }
+
+  ///////////
+  // DETAILS
+  &__details {
+    display: flex;
+    align-items: center;
+    padding: 3rem;
+    gap: 3rem;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  &__info-icon {
+    height: 2rem;
+    width: 2rem;
+    fill: $color-accent;
+  }
+
+  &__info-text {
+    font-size: 1.4rem;
+    color: $color-text-light;
+  }
+
+  &__info-data {
+    font-weight: 600;
+    color: $color-text;
+    font-size: 1.5rem;
+  }
+
+  &__user-generated {
+    background-color: $color-bg-tertiary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 50%;
+    margin-left: auto;
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+      fill: $color-accent;
+    }
+  }
+
+  ///////////
+  // DESCRIPTION
+  &__description {
+    padding: 3rem;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: $color-text;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__metadata {
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 2rem;
+    background-color: $color-bg-secondary;
+  }
+
+  &__meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__meta-label {
+    font-size: 1.3rem;
+    color: $color-text-light;
+    font-weight: 500;
+  }
+
+  &__meta-value {
+    font-size: 1.5rem;
+    color: $color-text;
+    font-weight: 500;
+  }
+
+  ///////////
+  // ACTIONS
+  &__actions {
+    padding: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    border-top: 1px solid $color-border;
+  }
+
+  &__btn {
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+}

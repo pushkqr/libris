@@ -1,0 +1,38 @@
+@use 'base' as *;
+
+.search-results {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  background-color: $color-bg-primary;
+  border-right: 1px solid $color-border;
+}
+
+.results {
+  list-style: none;
+  margin-bottom: auto;
+}
+
+.pagination {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid $color-border;
+
+  &__btn {
+    &--prev {
+      margin-right: auto;
+    }
+    &--next {
+      margin-left: auto;
+    }
+  }
+}
+
+.copyright {
+  color: $color-text-light;
+  font-size: 1.2rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid $color-border;
+}

@@ -1,0 +1,138 @@
+@use 'base' as *;
+
+.header {
+  grid-area: head;
+  background-color: $color-bg-primary;
+  border-bottom: 1px solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+  }
+
+  &__logo-img {
+    height: 7rem;
+    width: auto;
+    display: block;
+  }
+}
+
+.search {
+  background-color: $color-bg-secondary;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 1rem;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  flex: 1;
+  max-width: 50rem;
+
+  &:focus-within {
+    border-color: $color-accent;
+    background-color: $color-bg-primary;
+  }
+
+  &__icon {
+    height: 2rem;
+    width: 2rem;
+    fill: $color-text-light;
+  }
+
+  &__field {
+    border: none;
+    background: none;
+    font-family: inherit;
+    color: inherit;
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 1.2rem 0;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $color-text-light;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__btn {
+    font-family: inherit;
+    color: $color-text;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.6rem;
+    transition: all 0.2s;
+
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+      fill: currentColor;
+    }
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.library {
+  padding: 1rem 0;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 10;
+  width: 36rem;
+  background-color: $color-bg-primary;
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.8rem;
+  border: 1px solid $color-border;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+
+  &__list {
+    list-style: none;
+  }
+
+  &:hover,
+  .nav__btn--library:hover + & {
+    visibility: visible;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="src/sass/main.scss" />
+    <script defer src="src/js/controller.js"></script>
+
+    <title>Libris // Your Personal Book Library</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header__logo">
+          <img src="src/img/logo.png" alt="Libris" class="header__logo-img" />
+        </div>
+        <form class="search">
+          <svg class="search__icon">
+            <use href="src/img/icons.svg#search"></use>
+          </svg>
+          <input
+            type="text"
+            class="search__field"
+            placeholder="Search books by title, author, or ISBN..."
+          />
+        </form>
+
+        <nav class="nav">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--add-book">
+                <svg class="nav__icon">
+                  <use href="src/img/icons.svg#plus-circle"></use>
+                </svg>
+                <span>Add Book</span>
+              </button>
+            </li>
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--library">
+                <svg class="nav__icon">
+                  <use href="src/img/icons.svg#bookmark"></use>
+                </svg>
+                <span>My Library</span>
+              </button>
+              <div class="library">
+                <ul class="library__list">
+                  <div class="message">
+                    <div>
+                      <svg>
+                        <use href="src/img/icons.svg#book-open"></use>
+                      </svg>
+                    </div>
+                    <p>
+                      Your library is empty. Search and save your favorite
+                      books.
+                    </p>
+                  </div>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <div class="search-results">
+        <ul class="results">
+          <!-- 
+          <li class="preview">
+            <a class="preview__link preview__link--active" href="#23456">
+              <figure class="preview__fig">
+                <img src="src/img/test-1.jpg" alt="Book Cover" />
+              </figure>
+              <div class="preview__data">
+                <h4 class="preview__title">The Great Gatsby</h4>
+                <p class="preview__author">F. Scott Fitzgerald</p>
+                <div class="preview__user-generated">
+                  <svg>
+                    <use href="src/img/icons.svg#user"></use>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </li>
+           -->
+        </ul>
+
+        <div class="pagination">
+          <!-- Pagination buttons will be inserted here -->
+        </div>
+
+        <p class="copyright">
+          Built for learning purposes. Your personal book library.
+        </p>
+      </div>
+
+      <div class="book">
+        <div class="message">
+          <div>
+            <svg>
+              <use href="src/img/icons.svg#book-open"></use>
+            </svg>
+          </div>
+          <p>Search for a book to get started.</p>
+        </div>
+
+        <!-- Book details will be displayed here -->
+      </div>
+    </div>
+
+    <div class="overlay hidden"></div>
+    <div class="add-book-window hidden">
+      <button class="btn--close-modal">&times;</button>
+      <form class="upload">
+        <div class="upload__column">
+          <h3 class="upload__heading">Book Information</h3>
+          <label>Title</label>
+          <input required name="title" type="text" placeholder="Book title" />
+          <label>Author</label>
+          <input required name="author" type="text" placeholder="Author name" />
+          <label>ISBN</label>
+          <input name="isbn" type="text" placeholder="ISBN (optional)" />
+          <label>Cover URL</label>
+          <input name="cover" type="text" placeholder="Cover image URL" />
+          <label>Publisher</label>
+          <input name="publisher" type="text" placeholder="Publisher" />
+          <label>Year</label>
+          <input name="year" type="number" placeholder="Publication year" />
+        </div>
+
+        <div class="upload__column">
+          <h3 class="upload__heading">Additional Details</h3>
+          <label>Genre</label>
+          <input
+            name="genre"
+            type="text"
+            placeholder="Fiction, Non-fiction, etc."
+          />
+          <label>Pages</label>
+          <input name="pages" type="number" placeholder="Number of pages" />
+          <label>Language</label>
+          <input
+            name="language"
+            type="text"
+            placeholder="English, Spanish, etc."
+          />
+          <label>Description</label>
+          <textarea
+            name="description"
+            rows="4"
+            placeholder="Brief description..."
+          ></textarea>
+        </div>
+
+        <button class="btn upload__btn">
+          <svg>
+            <use href="src/img/icons.svg#upload-cloud"></use>
+          </svg>
+          <span>Add to Library</span>
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
