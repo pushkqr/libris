@@ -1,43 +1,10 @@
+import View from './View';
+
 import icons from 'url:./../../img/icons.svg';
 
-class BookView {
-  #parent = document.querySelector('.book');
-  #book;
-  #errorMessage = 'Oops! No book(s) found.';
-
-  render(data) {
-    this.#book = data;
-    // console.log(icons);
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#parent.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  renderSpinner() {
-    const markup = `
-        <div class="spinner">
-          <svg>
-            <use href="${icons}#loader"></use>
-          </svg>
-        </div>
-      `;
-    this.#clear();
-    this.#parent.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  renderError(message = this.#errorMessage) {
-    const markup = ` 
-        <div class="error">
-          <div>
-            <svg>
-              <use href="${icons}#alert-triangle"></use>
-            </svg>
-          </div>
-          <p>${message}</p>
-        </div>`;
-    this.#clear();
-    this.#parent.insertAdjacentHTML('afterbegin', markup);
-  }
+class BookView extends View {
+  _parent = document.querySelector('.book');
+  _errorMessage = 'Oops! No book(s) found.';
 
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach(ev => {
@@ -45,17 +12,14 @@ class BookView {
     });
   }
 
-  #clear() {
-    this.#parent.innerHTML = '';
-  }
-
   //prettier-ignore
-  #generateMarkup() {
+  async _generateMarkup() {
+    await this._preloadCover(this._data.coverUrl);
     return `
         <div class="book__cover">
-          <img src="${this.#book.coverUrl}" alt="${this.#book.title}" class="book__img" />
+          <img src="${this._data.coverUrl}" alt="${this._data.title}" class="book__img" />
           <h1 class="book__title">
-            <span>${this.#book.title}</span>
+            <span>${this._data.title}</span>
           </h1>
         </div>
 
@@ -65,42 +29,42 @@ class BookView {
               <use href="src/img/icons.svg#user"></use>
             </svg>
             <span class="book__info-text">Author:</span>
-            <span class="book__info-data">${this.#book.author}</span>
+            <span class="book__info-data">${this._data.author}</span>
           </div>
           <div class="book__info">
             <svg class="book__info-icon">
               <use href="src/img/icons.svg#calendar"></use>
             </svg>
             <span class="book__info-text">Published:</span>
-            <span class="book__info-data">${this.#book.year}</span>
+            <span class="book__info-data">${this._data.year}</span>
           </div>
           <div class="book__info">
             <svg class="book__info-icon">
               <use href="src/img/icons.svg#book-open"></use>
             </svg>
             <span class="book__info-text">Pages:</span>
-            <span class="book__info-data">${this.#book.pages}</span>
+            <span class="book__info-data">${this._data.pages}</span>
           </div>
         </div>
 
         <div class="book__description">
-          ${this.#book.overview}
+          ${this._data.overview}
         </div>
 
         <div class="book__metadata">
           <div class="book__meta-item">
             <span class="book__meta-label">ISBN</span>
-            <span class="book__meta-value">${this.#book.isbn}</span>
+            <span class="book__meta-value">${this._data.isbn}</span>
           </div>
           <div class="book__meta-item">
             <span class="book__meta-label">Genre</span>
             <span class="book__meta-value">${
-              this.#book.genre.length > 1 ? this.#book.genre.join(', ') : this.#book.genre[0]
+              this._data.genre.length > 1 ? this._data.genre.join(', ') : this._data.genre[0]
             }</span>
           </div>
           <div class="book__meta-item">
             <span class="book__meta-label">Publisher</span>
-            <span class="book__meta-value">${this.#book.publisher || 'Unknown'}</span>
+            <span class="book__meta-value">${this._data.publisher || 'Unknown'}</span>
           </div>
           <div class="book__meta-item">
             <span class="book__meta-label">Language</span>
