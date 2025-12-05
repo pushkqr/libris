@@ -1,5 +1,5 @@
 import View from './View';
-import { replaceCharAt } from '../helper';
+import icons from 'url:./../../img/icons.svg';
 
 class ResultsView extends View {
   _parent = document.querySelector('.results');
@@ -16,18 +16,13 @@ class ResultsView extends View {
     await this._preloadCover(book.coverUrl);
     return `
         <li class="preview">
-            <a class="preview__link preview__link--active" href="#${book.isbn}">
+            <a class="preview__link" href="#${book.id}">
                 <figure class="preview__fig">
-                    <img src="${book.coverUrl}" alt="Book Cover" />
+                    <img src="${book.coverUrl}" alt="${book.title}" />
                 </figure>
                 <div class="preview__data">
                     <h4 class="preview__title">${book.title}</h4>
                     <p class="preview__author">${book.author}</p>
-                    <div class="preview__user-generated">
-                        <svg>
-                            <use href="src/img/icons.svg#user"></use>
-                        </svg>
-                </div>
                 </div>
             </a>
         </li>`;

@@ -6,9 +6,9 @@ export default class View {
   _errorMessage;
 
   async render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) this.renderError();
     this._data = data;
     const markup = await this._generateMarkup();
-    // console.log(markup);
     this._clear();
     this._parent.insertAdjacentHTML('afterbegin', markup);
   }
