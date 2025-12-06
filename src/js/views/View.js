@@ -6,7 +6,9 @@ export default class View {
   _errorMessage;
 
   async render(data) {
-    if (!data || (Array.isArray(data) && data.length === 0)) this.renderError();
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      throw Error('No input data to render');
+    }
     this._data = data;
     const markup = await this._generateMarkup();
     this._clear();

@@ -12,6 +12,14 @@ class BookView extends View {
     });
   }
 
+  addHandlerAddBookmark(handler) {
+    this._parent.addEventListener('click', e => {
+      const btn = e.target.closest('.btn--bookmark');
+      if (!btn) return;
+
+      handler();
+    });
+  }
   //prettier-ignore
   async _generateMarkup() {
     await this._preloadCover(this._data.coverUrl);
@@ -73,11 +81,11 @@ class BookView extends View {
         </div>
 
         <div class="book__actions">
-          <button class="btn btn--small book__btn">
+          <button class="btn btn--small book__btn btn--bookmark">
             <svg>
-              <use href="${icons}#bookmark"></use>
+              <use href="${icons}#bookmark${(this._data.bookmarked) ? '-fill' : ''}"></use>
             </svg>
-            <span>Save to Library</span>
+            <span>${(this._data.bookmarked) ? 'Saved' : 'Save To Library'}</span>
           </button>
           <button class="btn btn--small book__btn">
             <svg>

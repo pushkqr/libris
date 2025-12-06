@@ -1,6 +1,6 @@
 import { API_URL, RES_PER_PAGE } from './config';
 import { getJSON } from './helper';
-import searchView from './views/searchView';
+import bookmarkView from './views/bookmarkView';
 
 export const state = {
   book: {},
@@ -10,6 +10,7 @@ export const state = {
     page: 1,
     resultsPerPage: RES_PER_PAGE,
   },
+  bookmarks: [],
 };
 
 export const loadBook = async function (id) {
@@ -17,6 +18,14 @@ export const loadBook = async function (id) {
     // console.log(`${API_URL}/${id}`);
     const book = await getJSON(`${API_URL}/${id}`);
     state.book = book;
+
+    if (state.bookmarks.some(bookmark => bookmark.id == book.id)) {
+      state.book.bookmarked = true;
+    } else {
+      state.book.bookmarked = false;
+    }
+
+    bookmarkView.render(state.bookmarks);
   } catch (error) {
     throw error;
   }
@@ -42,3 +51,30 @@ export const getSearchResultPage = function (page = state.search.page) {
 
   return state.search.results.slice(start, end);
 };
+
+export const addBookmark = function (book) {
+  state.bookmarks.push(book);
+
+  if (state.book.id === book.id) state.book.bookmarked = true;
+
+  persistBookmark();
+};
+
+export const deleteBookmark = function (book) {
+  const index = state.bookmarks.indexOf(bookmark => bookmark.id === book.id);
+  state.bookmarks.splice(index, 1);
+
+  if (state.book.id === book.id) state.book.bookmarked = false;
+
+  persistBookmark();
+};
+
+const persistBookmark = function () {
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
+
+const init = function () {
+  const storage = JSON.parse(localStorage.getItem('bookmarks'));
+  if (storage) state.bookmarks = storage;
+};
+init();

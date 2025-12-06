@@ -8,6 +8,7 @@ import bookView from './views/bookView';
 import searchView from './views/searchView';
 import resultsView from './views/resultsView';
 import paginationView from './views/paginationView';
+import bookmarkView from './views/bookmarkView';
 
 const controlBooks = async function () {
   try {
@@ -50,8 +51,22 @@ const controlPagination = async function (page) {
   }
 };
 
+const controlAddBookmark = async function () {
+  try {
+    if (!model.state.book.bookmarked) model.addBookmark(model.state.book);
+    else model.deleteBookmark(model.state.book);
+
+    bookView.renderSpinner();
+    await bookView.render(model.state.book);
+    await bookmarkView.render(model.state.bookmarks);
+  } catch (error) {
+    bookmarkView.renderError();
+  }
+};
+
 const init = () => {
   bookView.addHandlerRender(controlBooks);
+  bookView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearch);
   paginationView.addHandlerClick(controlPagination);
 };
