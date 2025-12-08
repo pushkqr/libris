@@ -175,13 +175,6 @@ Requires ES6+ support and modern JavaScript features.
 - `npm start` - Start development server with hot reload
 - `npm run build` - Build for production
 
-### Code Style
-
-- ES6+ syntax
-- Async/await for asynchronous operations
-- Modular SCSS with BEM-like naming
-- JSDoc comments for complex functions
-
 ---
 
 **Note:** This application requires a compatible book API server running on `localhost:8080`. The API should provide book data in the expected format.
