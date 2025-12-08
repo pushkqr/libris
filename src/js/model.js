@@ -1,6 +1,5 @@
 import { API_URL, RES_PER_PAGE } from './config';
 import { getJSON } from './helper';
-import bookmarkView from './views/bookmarkView';
 
 export const state = {
   book: {},
@@ -24,8 +23,6 @@ export const loadBook = async function (id) {
     } else {
       state.book.bookmarked = false;
     }
-
-    bookmarkView.render(state.bookmarks);
   } catch (error) {
     throw error;
   }
@@ -61,12 +58,21 @@ export const addBookmark = function (book) {
 };
 
 export const deleteBookmark = function (book) {
-  const index = state.bookmarks.indexOf(bookmark => bookmark.id === book.id);
+  const index = state.bookmarks.findIndex(bookmark => bookmark.id === book.id);
   state.bookmarks.splice(index, 1);
 
   if (state.book.id === book.id) state.book.bookmarked = false;
 
   persistBookmark();
+};
+
+export const fetchLinks = async function () {
+  try {
+    const res = await getJSON(`${API_URL}/${state.book.id}/download`);
+    return res.links;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const persistBookmark = function () {

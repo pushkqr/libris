@@ -9,10 +9,13 @@ import searchView from './views/searchView';
 import resultsView from './views/resultsView';
 import paginationView from './views/paginationView';
 import bookmarkView from './views/bookmarkView';
+import downloadView from './views/downloadView';
 
 const controlBooks = async function () {
   try {
     const id = window.location.hash.slice(1);
+    if (model.state.bookmarks.length > 0)
+      await bookmarkView.render(model.state.bookmarks);
 
     if (!id) return;
 
@@ -21,7 +24,6 @@ const controlBooks = async function () {
 
     await bookView.render(model.state.book);
   } catch (error) {
-    // console.error(error);
     bookView.renderError();
   }
 };
@@ -64,10 +66,26 @@ const controlAddBookmark = async function () {
   }
 };
 
+const controlDownload = async function () {
+  try {
+    downloadView.showOverlay();
+    const links = await model.fetchLinks();
+
+    if (!links || links.length < 1) {
+      throw Error('No download links found.');
+    }
+    downloadView.showDownloadLinks(links);
+  } catch (error) {
+    downloadView.renderError(error.message);
+  }
+};
+
 const init = () => {
   bookView.addHandlerRender(controlBooks);
   bookView.addHandlerAddBookmark(controlAddBookmark);
+  bookView.addHandlerDownload(controlDownload);
   searchView.addHandlerSearch(controlSearch);
   paginationView.addHandlerClick(controlPagination);
+  downloadView.addHandlerClose(() => {});
 };
 init();

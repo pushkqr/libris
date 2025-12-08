@@ -20,9 +20,17 @@ class BookView extends View {
       handler();
     });
   }
+
+  addHandlerDownload(handler) {
+    this._parent.addEventListener('click', e => {
+      const btn = e.target.closest('.btn--download');
+      if (!btn) return;
+      handler();
+    });
+  }
   //prettier-ignore
   async _generateMarkup() {
-    await this._preloadCover(this._data.coverUrl);
+    this._data.coverUrl = await this._preloadCover(this._data.coverUrl);
     return `
         <div class="book__cover">
           <img src="${this._data.coverUrl}" alt="${this._data.title}" class="book__img" />
@@ -87,13 +95,7 @@ class BookView extends View {
             </svg>
             <span>${(this._data.bookmarked) ? 'Saved' : 'Save To Library'}</span>
           </button>
-          <button class="btn btn--small book__btn">
-            <svg>
-              <use href="${icons}#eye"></use>
-            </svg>
-            <span>Read</span>
-          </button>
-          <button class="btn btn--small book__btn">
+          <button class="btn btn--small book__btn btn--download">
             <svg>
               <use href="${icons}#download"></use>
             </svg>

@@ -1,4 +1,5 @@
 import icons from 'url:./../../img/icons.svg';
+import { PLACEHOLDER_COVER, IMAGE_TIMEOUT_SEC } from '../config';
 
 export default class View {
   _parent;
@@ -42,9 +43,26 @@ export default class View {
   }
 
   async _preloadCover(url) {
-    const img = new Image();
-    img.src = url;
-    await img.decode();
+    const timeout = new Promise((_, reject) =>
+      setTimeout(
+        () => reject(new Error('Image load timeout')),
+        IMAGE_TIMEOUT_SEC * 1000
+      )
+    );
+
+    const loadImage = new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(url);
+      img.onerror = () => reject(new Error('Image load failed'));
+      img.src = url;
+    });
+
+    try {
+      return await Promise.race([loadImage, timeout]);
+    } catch (error) {
+      console.warn(`Failed to load cover: ${url}, using placeholder`);
+      return PLACEHOLDER_COVER;
+    }
   }
 
   _clear() {

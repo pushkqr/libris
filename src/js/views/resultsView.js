@@ -12,12 +12,12 @@ class ResultsView extends View {
   }
 
   async _generateMarkupPreview(book) {
-    await this._preloadCover(book.coverUrl);
+    const coverUrl = await this._preloadCover(book.coverUrl);
     return `
         <li class="preview">
             <a class="preview__link" href="#${book.id}">
                 <figure class="preview__fig">
-                    <img src="${book.coverUrl}" alt="${book.title}" />
+                    <img src="${coverUrl}" alt="${book.title}" />
                 </figure>
                 <div class="preview__data">
                     <h4 class="preview__title">${book.title}</h4>

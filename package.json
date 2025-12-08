@@ -1,7 +1,7 @@
 {
   "name": "libris",
   "version": "1.0.0",
-  "description": "",
+  "description": "A modern web application for searching, browsing, and managing your personal book library with bookmark and download features",
   "license": "ISC",
   "author": "pushkqr",
   "type": "commonjs",
@@ -11,7 +11,9 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.16.1",
+    "buffer": "^6.0.3",
     "parcel": "^2.16.1",
+    "process": "^0.11.10",
     "sass": "^1.94.2"
   },
   "dependencies": {
