@@ -51,12 +51,6 @@ npm start
 
 The app will open at `http://localhost:1234`
 
-### Build for Production
-
-```bash
-npm run build
-```
-
 ## Project Structure
 
 ```
@@ -173,7 +167,6 @@ Requires ES6+ support and modern JavaScript features.
 ### Available Scripts
 
 - `npm start` - Start development server with hot reload
-- `npm run build` - Build for production
 
 ---
 
