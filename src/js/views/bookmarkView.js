@@ -16,7 +16,7 @@ class BookmarkView extends View {
     const coverUrl = await this._preloadCover(book.coverUrl);
     return `
         <li class="preview">
-            <a class="preview__link" href="#${book.id}">
+            <a class="preview__link" href="#${book.hash}">
                 <figure class="preview__fig">
                     <img src="${coverUrl}" alt="${book.title}" />
                 </figure>

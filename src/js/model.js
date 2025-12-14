@@ -18,7 +18,7 @@ export const loadBook = async function (id) {
     const book = await getJSON(`${API_URL}/${id}`);
     state.book = book;
 
-    if (state.bookmarks.some(bookmark => bookmark.id == book.id)) {
+    if (state.bookmarks.some(bookmark => bookmark.hash == book.hash)) {
       state.book.bookmarked = true;
     } else {
       state.book.bookmarked = false;
@@ -52,23 +52,25 @@ export const getSearchResultPage = function (page = state.search.page) {
 export const addBookmark = function (book) {
   state.bookmarks.push(book);
 
-  if (state.book.id === book.id) state.book.bookmarked = true;
+  if (state.book.hash === book.hash) state.book.bookmarked = true;
 
   persistBookmark();
 };
 
 export const deleteBookmark = function (book) {
-  const index = state.bookmarks.findIndex(bookmark => bookmark.id === book.id);
+  const index = state.bookmarks.findIndex(
+    bookmark => bookmark.hash === book.hash
+  );
   state.bookmarks.splice(index, 1);
 
-  if (state.book.id === book.id) state.book.bookmarked = false;
+  if (state.book.hash === book.hash) state.book.bookmarked = false;
 
   persistBookmark();
 };
 
 export const fetchLinks = async function () {
   try {
-    const res = await getJSON(`${API_URL}/${state.book.id}/download`);
+    const res = await getJSON(`${API_URL}/${state.book.hash}/download`);
     return res.links;
   } catch (error) {
     throw error;

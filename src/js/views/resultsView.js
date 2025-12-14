@@ -3,6 +3,7 @@ import View from './View';
 class ResultsView extends View {
   _parent = document.querySelector('.results');
   _errorMessage = 'Oops! No book(s) found.';
+  _preloadedBooks = new Set();
 
   async _generateMarkup() {
     const previews = await Promise.all(
@@ -12,10 +13,15 @@ class ResultsView extends View {
   }
 
   async _generateMarkupPreview(book) {
-    const coverUrl = await this._preloadCover(book.coverUrl);
+    let coverUrl = book.coverUrl;
+
+    if (!this._preloadedBooks.has(book.hash)) {
+      coverUrl = await this._preloadCover(book.coverUrl);
+      this._preloadedBooks.add(book.hash);
+    }
     return `
         <li class="preview">
-            <a class="preview__link" href="#${book.id}">
+            <a class="preview__link" href="#${book.hash}">
                 <figure class="preview__fig">
                     <img src="${coverUrl}" alt="${book.title}" />
                 </figure>
