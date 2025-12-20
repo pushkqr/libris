@@ -14,6 +14,7 @@ import downloadView from './views/downloadView';
 const controlBooks = async function () {
   try {
     const id = window.location.hash.slice(1);
+
     if (model.state.bookmarks.length > 0)
       await bookmarkView.render(model.state.bookmarks);
 
@@ -23,6 +24,13 @@ const controlBooks = async function () {
     await model.loadBook(id);
 
     await bookView.render(model.state.book);
+
+    if (model.state.search.results.length > 0) {
+      resultsView.renderSync(
+        model.getSearchResultPage(model.state.search.page)
+      );
+      paginationView.render(model.state);
+    }
   } catch (error) {
     bookView.renderError();
   }
@@ -38,6 +46,7 @@ const controlSearch = async function () {
 
     await resultsView.render(model.getSearchResultPage(1));
     await paginationView.render(model.state);
+    resultsView.showNotification(model.state.search.results.length);
   } catch (error) {
     resultsView.renderError();
   }
@@ -45,9 +54,17 @@ const controlSearch = async function () {
 
 const controlPagination = async function (page) {
   try {
-    resultsView.renderSpinner();
-    await resultsView.render(model.getSearchResultPage(page));
-    await paginationView.render(model.state);
+    resultsView.renderSync(model.getSearchResultPage(page));
+    paginationView.render(model.state);
+
+    const nextPageBooks = model.getSearchResultPage(page + 1);
+    nextPageBooks.forEach(book => {
+      if (!resultsView._preloadedBooks.has(book.hash)) {
+        const img = new Image();
+        img.src = book.coverUrl;
+        img.onload = () => resultsView._preloadedBooks.add(book.hash);
+      }
+    });
   } catch (error) {
     resultsView.renderError();
   }
@@ -58,9 +75,13 @@ const controlAddBookmark = async function () {
     if (!model.state.book.bookmarked) model.addBookmark(model.state.book);
     else model.deleteBookmark(model.state.book);
 
-    bookView.renderSpinner();
-    await bookView.render(model.state.book);
-    await bookmarkView.render(model.state.bookmarks);
+    bookView.updateBookmarkButton(model.state.book.bookmarked);
+
+    if (model.state.bookmarks.length > 0) {
+      await bookmarkView.render(model.state.bookmarks);
+    } else {
+      bookmarkView.renderError();
+    }
   } catch (error) {
     bookmarkView.renderError();
   }

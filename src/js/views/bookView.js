@@ -28,6 +28,23 @@ class BookView extends View {
       handler();
     });
   }
+
+  updateBookmarkButton(bookmarked) {
+    requestAnimationFrame(() => {
+      const btn = this._parent.querySelector('.btn--bookmark');
+      if (!btn) return;
+
+      const icon = btn.querySelector('use');
+      const text = btn.querySelector('span');
+
+      icon.setAttribute(
+        'href',
+        `${icons}#bookmark${bookmarked ? '-fill' : ''}`
+      );
+      text.textContent = bookmarked ? 'Saved' : 'Save To Library';
+    });
+  }
+
   //prettier-ignore
   async _generateMarkup() {
     this._data.coverUrl = await this._preloadCover(this._data.coverUrl);

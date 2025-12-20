@@ -1,5 +1,6 @@
 #custom
 package-lock.json
+*.bat
 # Dependencies
 node_modules/
 

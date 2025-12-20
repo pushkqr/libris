@@ -4,6 +4,16 @@ import icons from 'url:./../../img/icons.svg';
 class PaginationView extends View {
   _parent = document.querySelector('.pagination');
 
+  render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      throw Error('No input data to render');
+    }
+    this._data = data;
+    const markup = this._generateMarkup();
+    this._clear();
+    this._parent.insertAdjacentHTML('afterbegin', markup);
+  }
+
   addHandlerClick(handler) {
     this._parent.addEventListener('click', e => {
       const btn = e.target.closest('.btn--inline');
@@ -12,7 +22,8 @@ class PaginationView extends View {
       handler(goto);
     });
   }
-  async _generateMarkup() {
+
+  _generateMarkup() {
     const numPages = Math.ceil(
       this._data.search.results.length / this._data.search.resultsPerPage
     );

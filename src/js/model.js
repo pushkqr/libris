@@ -18,7 +18,7 @@ export const loadBook = async function (id) {
     const book = await getJSON(`${API_URL}/${id}`);
     state.book = book;
 
-    if (state.bookmarks.some(bookmark => bookmark.hash == book.hash)) {
+    if (state.bookmarks.some(bookmark => bookmark.hash === book.hash)) {
       state.book.bookmarked = true;
     } else {
       state.book.bookmarked = false;
