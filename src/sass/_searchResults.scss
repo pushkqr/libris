@@ -6,6 +6,15 @@
   flex-direction: column;
   background-color: $color-bg-primary;
   border-right: 1px solid $color-border;
+
+  @media only screen and (max-width: $bp-medium) {
+    display: none;
+    border-right: none;
+
+    &--mobile-visible {
+      display: flex;
+    }
+  }
 }
 
 .results {

@@ -10,6 +10,7 @@ import resultsView from './views/resultsView';
 import paginationView from './views/paginationView';
 import bookmarkView from './views/bookmarkView';
 import downloadView from './views/downloadView';
+import mobileNavView from './views/mobileNavView';
 
 const controlBooks = async function () {
   try {
@@ -41,6 +42,7 @@ const controlSearch = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
+    mobileNavView.showResultsIfMobile();
     resultsView.renderSpinner();
     await model.searchBook(query);
 
@@ -108,5 +110,7 @@ const init = () => {
   searchView.addHandlerSearch(controlSearch);
   paginationView.addHandlerClick(controlPagination);
   downloadView.addHandlerClose(() => {});
+  mobileNavView.addHandlerBackButton(() => {});
+  mobileNavView.addHandlerMobileNavigation(() => model.state.search.results);
 };
 init();

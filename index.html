@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="preload" href="src/img/logo.png" as="image" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -123,6 +126,13 @@
       </div>
 
       <div class="book">
+        <button class="book__back-btn" aria-label="Back to search results">
+          <svg>
+            <use href="src/img/icons.svg#arrow-left"></use>
+          </svg>
+          <span>Back to Results</span>
+        </button>
+
         <div class="message">
           <div>
             <svg>

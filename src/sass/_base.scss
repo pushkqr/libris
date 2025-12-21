@@ -69,4 +69,13 @@ body {
     margin: 0;
     border-radius: 0;
   }
+
+  @media only screen and (max-width: $bp-medium) {
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'head'
+      'book';
+    min-height: 100vh;
+  }
 }

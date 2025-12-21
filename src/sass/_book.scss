@@ -5,6 +5,44 @@
   display: flex;
   flex-direction: column;
 
+  @media only screen and (max-width: $bp-medium) {
+    &--mobile-hidden {
+      display: none;
+    }
+  }
+
+  &__back-btn {
+    display: none;
+
+    @media only screen and (max-width: $bp-medium) {
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.5rem 2rem;
+      background-color: $color-bg-secondary;
+      border: none;
+      font-family: inherit;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: $color-accent;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      svg {
+        height: 2rem;
+        width: 2rem;
+        fill: currentColor;
+      }
+
+      &:hover {
+        background-color: $color-bg-tertiary;
+      }
+
+      &--visible {
+        display: flex;
+      }
+    }
+  }
+
   ///////////
   // COVER
   &__cover {
@@ -15,6 +53,11 @@
     align-items: center;
     gap: 2.5rem;
     border-bottom: 1px solid $color-border;
+
+    @media only screen and (max-width: $bp-small) {
+      padding: 2.5rem 2rem;
+      gap: 1.5rem;
+    }
   }
 
   &__img {
@@ -24,6 +67,11 @@
     object-fit: contain;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
     border-radius: 0.4rem;
+
+    @media only screen and (max-width: $bp-small) {
+      max-width: 22rem;
+      max-height: 32rem;
+    }
   }
 
   &__title {
@@ -55,6 +103,11 @@
     gap: 2.5rem;
     border-bottom: 1px solid $color-border;
     background-color: $color-bg-primary;
+
+    @media only screen and (max-width: $bp-small) {
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+    }
   }
 
   &__info {
@@ -106,6 +159,11 @@
     line-height: 1.8;
     color: $color-text;
     border-bottom: 1px solid $color-border;
+
+    @media only screen and (max-width: $bp-small) {
+      padding: 2rem 1.5rem;
+      font-size: 1.4rem;
+    }
   }
 
   &__metadata {
@@ -114,6 +172,12 @@
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     gap: 2rem;
     background-color: $color-bg-secondary;
+
+    @media only screen and (max-width: $bp-small) {
+      padding: 2rem 1.5rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
   }
 
   &__meta-item {
@@ -143,6 +207,16 @@
     align-items: center;
     justify-content: center;
     background-color: $color-bg-primary;
+
+    @media only screen and (max-width: $bp-small) {
+      padding: 2rem 1.5rem;
+      flex-direction: column;
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   }
 
   &__btn {

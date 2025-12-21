@@ -33,6 +33,10 @@
   padding: 1.2rem 2.4rem;
   font-size: 1.5rem;
 
+  @media only screen and (max-width: $bp-medium) {
+    min-height: 4.8rem;
+  }
+
   svg {
     height: 2rem;
     width: 2rem;

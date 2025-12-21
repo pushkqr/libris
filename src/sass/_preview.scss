@@ -10,6 +10,10 @@
       transition: all 0.2s;
       border-bottom: 1px solid $color-border;
       text-decoration: none;
+
+      @media only screen and (max-width: $bp-medium) {
+        padding: 1.2rem 1.5rem;
+      }
     }
 
     &:hover {
@@ -29,6 +33,12 @@
     height: 9rem;
     margin-right: 1.5rem;
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+
+    @media only screen and (max-width: $bp-medium) {
+      flex: 0 0 4.5rem;
+      height: 6.5rem;
+      margin-right: 1.2rem;
+    }
 
     img {
       display: block;
@@ -57,12 +67,21 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.4;
+
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 1.4rem;
+      -webkit-line-clamp: 2;
+    }
   }
 
   &__author {
     font-size: 1.3rem;
     color: $color-text-light;
     font-weight: 400;
+
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 1.2rem;
+    }
   }
 
   &__user-generated {

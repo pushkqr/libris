@@ -5,6 +5,37 @@ import icons from 'url:./../../img/icons.svg';
 class BookView extends View {
   _parent = document.querySelector('.book');
   _errorMessage = 'Oops! No book(s) found.';
+  _backBtn = document.querySelector('.book__back-btn');
+
+  async render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      throw Error('No input data to render');
+    }
+    this._data = data;
+    const markup = await this._generateMarkup();
+    this._clearPreservingBackBtn();
+    this._parent.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  renderSpinner() {
+    const markup = `
+        <div class="spinner">
+          <svg>
+            <use href="${icons}#loader"></use>
+          </svg>
+        </div>
+      `;
+    this._clearPreservingBackBtn();
+    this._parent.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  _clearPreservingBackBtn() {
+    Array.from(this._parent.children).forEach(child => {
+      if (!child.classList.contains('book__back-btn')) {
+        child.remove();
+      }
+    });
+  }
 
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach(ev => {
