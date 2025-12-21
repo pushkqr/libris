@@ -11,6 +11,7 @@ A modern web application for searching, browsing, and managing your personal boo
 - 📄 **Pagination** - Browse search results with easy page navigation
 - 🖼️ **Image Preloading** - Smooth UX with preloaded covers and fallback placeholders
 - ⚡ **Fast & Responsive** - Built with modern JavaScript and optimized performance
+- 📱 **Mobile-friendly** - Improved responsive layout, mobile navigation behavior, and spinner visibility on small screens
 
 ## Tech Stack
 
@@ -61,6 +62,7 @@ libris/
 │   │   │   ├── View.js     # Base view class
 │   │   │   ├── bookView.js
 │   │   │   ├── resultsView.js
+│   │   │   ├── mobileNavView.js
 │   │   │   ├── searchView.js
 │   │   │   ├── paginationView.js
 │   │   │   ├── bookmarkView.js
@@ -167,8 +169,6 @@ Requires ES6+ support and modern JavaScript features.
 ### Available Scripts
 
 - `npm start` - Start development server with hot reload
-
----
 
 **Note:** This application requires a compatible book API server running on `localhost:8080`. The API should provide book data in the expected format.
 
