@@ -27,9 +27,7 @@ const controlBooks = async function () {
     await bookView.render(model.state.book);
 
     if (model.state.search.results.length > 0) {
-      resultsView.renderSync(
-        model.getSearchResultPage(model.state.search.page)
-      );
+      resultsView.renderSync(model.getPageResults(model.state.search.page));
       paginationView.render(model.state);
     }
   } catch (error) {
@@ -46,7 +44,8 @@ const controlSearch = async function () {
     resultsView.renderSpinner();
     await model.searchBook(query);
 
-    await resultsView.render(model.getSearchResultPage(1));
+    model.setSearchPage(1);
+    await resultsView.render(model.getPageResults(1));
     await paginationView.render(model.state);
     resultsView.showNotification(model.state.search.results.length);
   } catch (error) {
@@ -56,10 +55,11 @@ const controlSearch = async function () {
 
 const controlPagination = async function (page) {
   try {
-    resultsView.renderSync(model.getSearchResultPage(page));
+    model.setSearchPage(page);
+    resultsView.renderSync(model.getPageResults(page));
     paginationView.render(model.state);
 
-    const nextPageBooks = model.getSearchResultPage(page + 1);
+    const nextPageBooks = model.getPageResults(page + 1);
     nextPageBooks.forEach(book => {
       if (!resultsView._preloadedBooks.has(book.hash)) {
         const img = new Image();
@@ -110,7 +110,8 @@ const init = () => {
   searchView.addHandlerSearch(controlSearch);
   paginationView.addHandlerClick(controlPagination);
   downloadView.addHandlerClose(() => {});
-  mobileNavView.addHandlerBackButton(() => {});
+
+  // Let the view manage its own navigation listeners (publisher-subscriber pattern)
   mobileNavView.addHandlerMobileNavigation(() => model.state.search.results);
 };
 init();

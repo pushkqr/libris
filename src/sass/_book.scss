@@ -11,38 +11,6 @@
     }
   }
 
-  &__back-btn {
-    display: none;
-
-    @media only screen and (max-width: $bp-medium) {
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1.5rem 2rem;
-      background-color: $color-bg-secondary;
-      border: none;
-      font-family: inherit;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: $color-accent;
-      cursor: pointer;
-      transition: all 0.2s;
-
-      svg {
-        height: 2rem;
-        width: 2rem;
-        fill: currentColor;
-      }
-
-      &:hover {
-        background-color: $color-bg-tertiary;
-      }
-
-      &--visible {
-        display: flex;
-      }
-    }
-  }
-
   ///////////
   // COVER
   &__cover {
